@@ -28,25 +28,48 @@ interface MoviesResponseData {
 
 export const movieApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getMovies: builder.query<MoviesResponseData | undefined, void>({
-      // query: () => 'photos',
+    getMovies: builder.query<MoviesResponseData | undefined, number>({
       // query: ({ searchKeyword, pageNumber }) => ({
       // query: (pageNumber: number) => ({
-      query: () => ({
-        url: `${FIND_MOVIE_WITHIN_DATES_URL}?${API_KEY}&release_date.gte=19-02-2024&release_date.lte=18-03-2024&sort_by=popularity.desc`,
-        // params: {
-        //   pageNumber,
-        // },
+      query: (page) => ({
+        url: `${FIND_MOVIE_WITHIN_DATES_URL}?${API_KEY}&release_date.gte=19-02-2024&release_date.lte=18-03-2024&page=${page}&sort_by=popularity.desc&offset=${
+          page * 20
+        }&limit=20`,
       }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      // Always merge incoming data to the cache entry
+      merge: (
+        currentCache: MoviesResponseData | undefined,
+        newItems: MoviesResponseData
+      ) => {
+        if (currentCache && newItems) {
+          //   return {
+          //     ...newItems,
+          //     results: [...currentCache.results, ...newItems.results],
+          //   };
+          // }
+          // return newItems;
+
+          if (newItems.page === currentCache.page + 1) {
+            return {
+              ...newItems,
+              results: [...currentCache.results, ...newItems.results],
+            };
+          } else {
+            // If the new page isn't the next sequential page, return newItems directly
+            return newItems;
+          }
+        }
+        return newItems;
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
 
       providesTags: [{ type: "Movies", id: "LIST" }],
-      // getNextPageParam: (lastPage) => {
-      //   if (lastPage.data.length === 0 || !lastPage.next) {
-      //     return undefined; // Indicates no more pages
-      //   }
-      //   return lastPage.next.page + 1;
-      // },
-      // useInfiniteQuery: true,
     }),
   }),
 });
