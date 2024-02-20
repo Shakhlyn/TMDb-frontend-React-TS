@@ -1,35 +1,16 @@
 import { FaSistrix } from "react-icons/fa6";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const DateRange: React.FC = () => {
-  const { startDate, endDate } = useParams();
-
-  const [start, setStart] = useState<Date | null>(
-    startDate ? new Date(startDate) : null
+  const currentDate = new Date();
+  const firstDayOfPreviousMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() - 1, // Subtract 1 to get the previous month
+    1
   );
-  const [end, setEnd] = useState<Date>(
-    endDate ? new Date(endDate) : new Date()
-  );
-
-  const navigate = useNavigate();
-
-  const searchHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    let searchParams: any = {};
-
-    if (start) {
-      searchParams.startDate = formatDate(start);
-    }
-
-    if (end) {
-      searchParams.endDate = formatDate(end);
-    }
-
-    navigate(`/movie/?${new URLSearchParams(searchParams).toString()}`);
-  };
 
   const formatDate = (date: Date): string => {
     const day = String(date.getDate()).padStart(2, "0");
@@ -38,20 +19,61 @@ const DateRange: React.FC = () => {
     return `${day}-${month}-${year}`;
   };
 
+  const [startDate, setStartDate] = useState<Date | null>();
+  const [endDate, setEndDate] = useState<Date | null>();
+
+  const [defaultStartDate, setDefaultStartDate] = useState<string>(
+    formatDate(currentDate)
+  );
+  const [defaultEndDate, setDefaultEndDate] = useState<string>(
+    formatDate(firstDayOfPreviousMonth)
+  );
+
+  const navigate = useNavigate();
+
+  // console.log(defaultStartDate, defaultEndDate);
+  // console.log(startDate, endDate);
+
+  const changeDateHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (startDate && endDate) {
+      const startTimestamp = startDate.getTime(); // Get timestamp of startDate
+      const endTimestamp = endDate.getTime(); // Get timestamp of endDate
+
+      if (startTimestamp <= endTimestamp) {
+        // Check if startDate is earlier or equal to endDate
+
+        // if startDate and endDate are given update default startDate and endDate
+        setDefaultStartDate(formatDate(startDate));
+        setDefaultEndDate(formatDate(endDate));
+        navigate(
+          `/movie?start-date=${defaultStartDate}&end-date=${defaultEndDate}`
+        );
+      } else {
+        alert("Start date cannot be after end date.");
+      }
+    } else {
+      alert(
+        "Please selecet both the start date and the end date to search movies between the two dates!"
+      );
+    }
+  };
+
   return (
-    <form onSubmit={searchHandler} className="flex flex-row mx-1">
+    <form onSubmit={changeDateHandler} className="flex flex-row mx-1">
       <span> Date Range: </span>
       <DatePicker
-        selected={start}
-        onChange={(date: Date | null) => setStart(date)}
+        selected={startDate}
+        onChange={(date: Date | null) => setStartDate(date)}
         className="mx-2 px-2 py-1 rounded-sm text-black text-mobile sm:text-sm mobile:w-20 md:w-20"
         placeholderText="Start Date"
         dateFormat="dd-MM-yyyy"
       />
       <span> - </span>
       <DatePicker
-        selected={end}
-        onChange={(date: Date) => setEnd(date)}
+        selected={endDate}
+        onChange={(date: Date | null) => setEndDate(date)}
         className="ml-2 px-2 py-1 rounded-s-sm text-black text-mobile sm:text-sm mobile:w-20 md:w-20"
         placeholderText="End Date"
         dateFormat="dd-MM-yyyy"

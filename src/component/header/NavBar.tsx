@@ -5,7 +5,7 @@ import { BsBookmarkPlusFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 // import { useSelector } from "react-redux";
 
-import SearchBox from "./SearchBox";
+// import SearchBox from "./SearchBox";
 import DateRange from "./DateRange";
 
 const NavBar: React.FC = () => {
@@ -16,9 +16,6 @@ const NavBar: React.FC = () => {
           <Link to="/">TMDb</Link>
         </div>
 
-        <div>
-          <SearchBox />
-        </div>
         <div>
           <DateRange />
         </div>

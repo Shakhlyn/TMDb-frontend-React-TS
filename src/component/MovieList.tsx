@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { BsBookmarkPlusFill } from "react-icons/bs";
 
-import { useGetMoviesQuery } from "../../slice/movieApiSlice";
+import { useGetMoviesQuery } from "../slice/movieApiSlice";
 
 const MovieList: React.FC = () => {
   const [page, setPage] = useState<number>(1);
@@ -11,13 +11,12 @@ const MovieList: React.FC = () => {
 
   // if movies == null | undefined, set []
   const movies = data?.results ?? [];
-  // console.log(data);
 
   useEffect(() => {
     const onScroll = () => {
-      const scrolledBotton =
+      const scrolledBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      if (scrolledBotton && !isFetching) {
+      if (scrolledBottom && !isFetching) {
         console.log("Fetching more data ...");
         setPage(page + 1);
       }
@@ -42,17 +41,19 @@ const MovieList: React.FC = () => {
     <>
       <h1 className="text-3xl">MovieList: data fetching is successful!!!</h1>
       <h3 className="mb-12 text-2xl">Here goes the list of the movies:</h3>
-      {/* <br /> */}
-      {movies &&
-        movies.map((movie, index) => (
-          <div className=" w-5/6 mx-auto">
+      <div className=" w-5/6 mx-auto">
+        {movies &&
+          movies.map((movie, index) => (
             <div
               key={`${movie.id}-${index}`}
               className=" w-full flex flex-row gap-4 mb-10 p-2 rounded shadow shadow-gray-800 "
             >
               <div>
-                <h1>Image</h1>
-                {/* <img src="" alt="" /> */}
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                  alt="image"
+                  className=" w-40 h-auto "
+                />
               </div>
               <div className="w-full">
                 <div className="flex justify-between mb-1">
@@ -77,15 +78,15 @@ const MovieList: React.FC = () => {
                 </div>
 
                 <div className="flex flex-row gap-4 mb-4 ">
-                  <p>Rating: {movie.vote_average} </p>
+                  <p>Rating: {movie.vote_average.toFixed(1)} </p>
                   <p>Total votes: {movie.vote_count} </p>
-                  <p> Popularity: {movie.popularity} </p>
+                  <p> Popularity: {movie.popularity.toFixed(1)} </p>
                 </div>
-                <p>{movie.overview}</p>
+                <p>{movie.overview} </p>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+      </div>
     </>
   );
 };

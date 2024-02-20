@@ -13,7 +13,7 @@ import store from "./store.ts";
 
 import App from "./App.tsx";
 import HomeScreen from "./screen/homeScreen/HomeScreen.tsx";
-import MovieList from "./screen/homeScreen/MovieList.tsx";
+import MovieList from "./component/MovieList.tsx";
 import { Provider } from "react-redux";
 
 const router = createBrowserRouter(
