@@ -11,7 +11,7 @@ import { formatDate } from "../../utils/Date";
 
 const DateRange: React.FC = ({}) => {
   const [searchStartDate, setSearchStartDate] = useState<Date | null>();
-  const [searchEndDate, searchSetEndDate] = useState<Date | null>();
+  const [searchEndDate, setSearchEndDate] = useState<Date | null>();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -27,14 +27,15 @@ const DateRange: React.FC = ({}) => {
       const endTimestamp = searchEndDate.getTime(); // Get timestamp of searchEndDate
 
       if (startTimestamp <= endTimestamp) {
-        // Check if searchStartDate is earlier or equal to searchEndDate
-
+        // Check if searchStartDate is earlier or equal to searchEndDat
         navigate(
           `/movies/${formatDate(searchStartDate)}/${formatDate(searchEndDate)}`
         );
       } else {
         alert("Start date cannot be after end date.");
       }
+      setSearchStartDate(null);
+      setSearchEndDate(null);
     } else {
       alert(
         "Please selecet both the start date and the end date to search movies between the two dates!"
@@ -55,7 +56,7 @@ const DateRange: React.FC = ({}) => {
       <span> - </span>
       <DatePicker
         selected={searchEndDate}
-        onChange={(date: Date | null) => searchSetEndDate(date)}
+        onChange={(date: Date | null) => setSearchEndDate(date)}
         className="ml-2 px-2 py-1 rounded-s-sm text-black text-mobile sm:text-sm mobile:w-20 md:w-20"
         placeholderText="End Date"
         dateFormat="dd-MM-yyyy"

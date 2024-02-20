@@ -6,6 +6,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import "./index.css";
 
@@ -14,12 +15,13 @@ import store from "./store.ts";
 import App from "./App.tsx";
 import HomeScreen from "./screen/homeScreen/HomeScreen.tsx";
 import MovieList from "./component/MovieList.tsx";
-import { Provider } from "react-redux";
+import MovieDetailsScreen from "./screen/movieScreen/MovieDetailsScreen.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<HomeScreen />} />
+      <Route path="movie/:movieId" element={<MovieDetailsScreen />} />
       <Route path="movies" element={<MovieList />} />
       <Route path="movies/:startDate/:endDate" element={<MovieList />} />
     </Route>

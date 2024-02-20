@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { BsBookmarkPlusFill } from "react-icons/bs";
+// import { BsBookmarkPlusFill } from "react-icons/bs";
 
 import { useGetMoviesQuery } from "../slice/movieApiSlice";
 
 import { useAppSelector } from "../slice/hooks";
+import MovieCard from "./MovieCard";
 
 const MovieList: React.FC = () => {
   const startDateFromStore = useAppSelector((state) => state.dates.startDate);
@@ -38,7 +39,6 @@ const MovieList: React.FC = () => {
   // }
 
   const [page, setPage] = useState<number>(1);
-  console.log(page, startDateToFetch, endDateToFetch);
 
   const { data, isLoading, isError, isFetching } = useGetMoviesQuery({
     page,
@@ -83,47 +83,7 @@ const MovieList: React.FC = () => {
       <div className=" w-5/6 mx-auto">
         {movies &&
           movies.map((movie, index) => (
-            <div
-              key={`${movie.id}-${index}`}
-              className=" w-full flex flex-row gap-4 mb-10 p-2 rounded shadow shadow-gray-800 "
-            >
-              <div>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                  alt="image"
-                  className=" w-40 h-auto "
-                />
-              </div>
-              <div className="w-full">
-                <div className="flex justify-between mb-1">
-                  <div className="flex gap-1">
-                    {movie.title === movie.original_title ? (
-                      <h2>
-                        {`${index + 1}. `}
-                        {movie.original_title}
-                      </h2>
-                    ) : (
-                      <h2>
-                        {`${index + 1}. `}
-                        {movie.original_title} - ({movie.title})
-                      </h2>
-                    )}
-                    <p>({movie.release_date})</p>
-                  </div>
-                  <BsBookmarkPlusFill
-                    className="text-rose-500 cursor-pointer "
-                    onClick={() => alert("Saved in your watchlist")}
-                  />
-                </div>
-
-                <div className="flex flex-row gap-4 mb-4 ">
-                  <p>Rating: {movie.vote_average.toFixed(1)} </p>
-                  <p>Total votes: {movie.vote_count} </p>
-                  <p> Popularity: {movie.popularity.toFixed(1)} </p>
-                </div>
-                <p>{movie.overview} </p>
-              </div>
-            </div>
+            <MovieCard key={movie.id} movie={movie} index={index} />
           ))}
       </div>
     </>
