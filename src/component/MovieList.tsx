@@ -1,13 +1,52 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import { BsBookmarkPlusFill } from "react-icons/bs";
 
 import { useGetMoviesQuery } from "../slice/movieApiSlice";
 
-const MovieList: React.FC = () => {
-  const [page, setPage] = useState<number>(1);
+import { useAppSelector } from "../slice/hooks";
 
-  const { data, isLoading, isError, isFetching } = useGetMoviesQuery(page);
+const MovieList: React.FC = () => {
+  const startDateFromStore = useAppSelector((state) => state.dates.startDate);
+  const endDateFromStore = useAppSelector((state) => state.dates.endDate);
+
+  const [startDateToFetch, setStartDateToFetch] =
+    useState<string>(startDateFromStore);
+  const [endDateToFetch, setEndDateFetch] = useState<string>(endDateFromStore);
+
+  const { startDate, endDate } = useParams<{
+    startDate: string;
+    endDate: string;
+  }>();
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      setStartDateToFetch(startDate);
+      setEndDateFetch(endDate);
+    }
+  }, [startDate, endDate]);
+
+  // const searchParams = new URLSearchParams(window.location.search);
+
+  // const searchStartDate = searchParams.get("start-date");
+  // const searchEndDate = searchParams.get("end-date");
+
+  // if (searchStartDate && searchEndDate) {
+  //   setStartDate(searchStartDate);
+  //   setEndDate(searchEndDate);
+  // }
+
+  const [page, setPage] = useState<number>(1);
+  console.log(page, startDateToFetch, endDateToFetch);
+
+  const { data, isLoading, isError, isFetching } = useGetMoviesQuery({
+    page,
+    startDateToFetch,
+    endDateToFetch,
+  });
+  // const { data, isLoading, isError, isFetching } = useGetMoviesQuery(page);
+  // ****change id the rtk with type
 
   // if movies == null | undefined, set []
   const movies = data?.results ?? [];
@@ -27,7 +66,7 @@ const MovieList: React.FC = () => {
     return function () {
       document.removeEventListener("scroll", onScroll);
     };
-  }, [page, isFetching]);
+  }, [page, isFetching, startDateToFetch, endDateToFetch]);
 
   if (isLoading) {
     return <h1>Loading ...</h1>;

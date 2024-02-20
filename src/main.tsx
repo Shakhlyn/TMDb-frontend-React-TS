@@ -21,6 +21,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="" element={<HomeScreen />} />
       <Route path="movies" element={<MovieList />} />
+      <Route path="movies/:startDate/:endDate" element={<MovieList />} />
     </Route>
   )
 );

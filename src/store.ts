@@ -3,11 +3,17 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 // import { useDispatch } from "react-redux";
 
 import { apiSlice } from "./slice/apiSlice";
+import datesSliceReducer from "./slice/datesSlice";
 
 const store = configureStore({
-  reducer: { [apiSlice.reducerPath]: apiSlice.reducer },
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    dates: datesSliceReducer,
+  },
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
+
   devTools: true,
 });
 
@@ -24,3 +30,19 @@ export type AppDispatch = typeof store.dispatch;
 // // **** If we need to use "useSelector", we should make a reusable hook like 'AppDispatch' hook in this store module.
 
 export default store;
+
+// *******************
+
+// import store from "./store";
+// import setupListeners from "@reduxjs/toolkit/query/react";
+// import App from "./App";
+
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(
+//   <React.StrictMode>
+//     <Provider store={store}>
+//       {setupListeners()} // Call setupListeners here for application-wide setup  ***************
+//       <App />
+//     </Provider>
+//   </React.StrictMode>
+// );
