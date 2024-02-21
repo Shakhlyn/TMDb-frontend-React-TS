@@ -27,9 +27,6 @@ const MovieDetailsScreen: React.FC = () => {
   if (!movie || isError) {
     return <Error message="Please try again" />;
   }
-  //   if (isCreditLoading && !isLoading) {
-  //     return <Loader />;
-  //   }
 
   if (!credits || isCreditError) {
     return <Error message="Please try again" />;

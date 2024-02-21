@@ -40,7 +40,7 @@ const MovieList: React.FC = () => {
 
   const [page, setPage] = useState<number>(1);
 
-  const { data, isLoading, isError, isFetching, error } = useGetMoviesQuery({
+  const { data, isLoading, isError, isFetching } = useGetMoviesQuery({
     page,
     startDateToFetch,
     endDateToFetch,
