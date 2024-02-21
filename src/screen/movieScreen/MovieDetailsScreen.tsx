@@ -7,7 +7,7 @@ import { FaImdb } from "react-icons/fa6";
 import {
   useGetMovieDetailsQuery,
   useGetCreditsQuery,
-} from "../../slice/movieApiSlice";
+} from "../../slice/newMovieApiSlice";
 
 import Rating from "../../component/Rating";
 import Loader from "../../component/Loader";
@@ -117,7 +117,7 @@ const MovieDetailsScreen: React.FC = () => {
                 ))}
             </div>
             <div className=" w-1/2  shadow-rose-400 shadow-md px-3 py-4 ">
-              <h1 className="text-center text-2xl mb-4">Casts</h1>
+              <h1 className="text-center text-2xl mb-4">Crews</h1>
               <div className="mb-3 flex flex-row justify-between">
                 <p className="text-lg">Name</p>
                 <p className="text-lg">Job</p>

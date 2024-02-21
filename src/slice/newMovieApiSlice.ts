@@ -28,11 +28,16 @@ export const newMovieApiSlice = apiSlice.injectEndpoints({
     //   }),
     //   providesTags: ["Movies"],
     // }),
-    getMovies: builder.query<MoviesResponseData, number>({
-      query: (page) => ({
+    getMovies: builder.query<
+      MoviesResponseData,
+      { page: number; startDateToFetch: string; endDateToFetch: string }
+    >({
+      query: ({ page, startDateToFetch, endDateToFetch }) => ({
         url: `${FIND_MOVIE_WITHIN_DATES_URL}`,
         params: {
           api_key: `${API_KEY}`,
+          "primary_release_date.gte": startDateToFetch,
+          "primary_release_date.lte": endDateToFetch,
           sort_by: "popularity.desc",
           page: `${page}`,
           offset: `${page * 20}`,
