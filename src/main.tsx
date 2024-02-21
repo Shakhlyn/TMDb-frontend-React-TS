@@ -14,7 +14,7 @@ import store from "./store.ts";
 
 import App from "./App.tsx";
 import HomeScreen from "./screen/homeScreen/HomeScreen.tsx";
-import NewMovieList from "./component/NewMovieList.tsx";
+import MovieList from "./component/MovieList.tsx";
 import MovieDetailsScreen from "./screen/movieScreen/MovieDetailsScreen.tsx";
 
 const router = createBrowserRouter(
@@ -22,10 +22,9 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="" element={<HomeScreen />} />
       <Route path="movie/:movieId" element={<MovieDetailsScreen />} />
-      {/* <Route path="movies" element={<MovieList />} />
-      <Route path="movies/:startDate/:endDate" element={<MovieList />} /> */}
-      <Route path="movies" element={<NewMovieList />} />
-      <Route path="movies/:startDate/:endDate" element={<NewMovieList />} />
+
+      <Route path="movies" element={<MovieList />} />
+      <Route path="movies/:startDate/:endDate" element={<MovieList />} />
     </Route>
   )
 );

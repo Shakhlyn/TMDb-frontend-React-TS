@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 import { BsBookmarkPlusFill } from "react-icons/bs";
@@ -7,17 +7,29 @@ import { FaImdb } from "react-icons/fa6";
 import {
   useGetMovieDetailsQuery,
   useGetCreditsQuery,
-} from "../../slice/newMovieApiSlice";
+  useGetSimilarMoviesQuery,
+} from "../../slice/movieApiSlice";
 
 import Rating from "../../component/Rating";
 import Loader from "../../component/Loader";
 import Error from "../../component/Error";
+import { Movie } from "../../interfaces/movieInterface";
 
 const MovieDetailsScreen: React.FC = () => {
+  const [similarMovies, setSimilarMovies] = useState<Movie[]>();
+
   const { movieId } = useParams<{ movieId: any }>();
 
   const { data: movie, isLoading, isError } = useGetMovieDetailsQuery(movieId);
   const { data: credits, isError: isCreditError } = useGetCreditsQuery(movieId);
+  const { data, isLoading: isSimilarMovieLoading } =
+    useGetSimilarMoviesQuery(movieId);
+
+  useEffect(() => {
+    if (data) {
+      setSimilarMovies(data.results);
+    }
+  });
 
   //
   if (isLoading) {
@@ -101,7 +113,7 @@ const MovieDetailsScreen: React.FC = () => {
       </section>
 
       {credits && (
-        <section>
+        <section className="my-20">
           <div className="flex flex-row gap-8 w-full">
             <div className=" w-1/2 shadow-rose-400 shadow-md px-3 py-4 ">
               <h1 className="text-center text-2xl mb-4">Casts</h1>
@@ -132,6 +144,34 @@ const MovieDetailsScreen: React.FC = () => {
                     <p>{crew.job}</p>
                   </div>
                 ))}
+            </div>
+          </div>
+        </section>
+      )}
+      {/* section for similar movies: */}
+      {isSimilarMovieLoading && <p>Loading ...</p>}
+      {similarMovies && (
+        <section className="my-20">
+          <h1 className="text-lg font-semibold text-rose-700 bg-yellow-400 w-fit px-2 py-1 rounded">
+            Some Similar movies:
+          </h1>
+          <div className="m-4 shadow-sm rounded shadow-slate-400">
+            <div className="grid grid-cols-6 gap-6 mt-6 w-full h-auto">
+              {similarMovies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="col-span-1 flex flex-row items-center justify-around h-full"
+                >
+                  <Link to={`/movie/${movie.id}`} className="w-full">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                      alt="image"
+                      className="w-full h-auto object-cover rounded-lg"
+                    />
+                    <p className="text-center text-sm mt-1">{movie.title}</p>
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </section>

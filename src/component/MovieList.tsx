@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { useGetMoviesQuery } from "../slice/newMovieApiSlice";
+import { useGetMoviesQuery } from "../slice/movieApiSlice";
 import { useAppSelector } from "../slice/hooks";
 
 import MovieCard from "./MovieCard";
@@ -10,12 +10,10 @@ import Loader from "./Loader";
 import Error from "./Error";
 import { Movie } from "../interfaces/movieInterface";
 
-const NewMovieList: React.FC = () => {
+const MovieList: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [movieList, setMovieList] = useState<Movie[]>([]);
-
-  //   *******************************************
 
   const startDateFromStore = useAppSelector((state) => state.dates.startDate);
   const endDateFromStore = useAppSelector((state) => state.dates.endDate);
@@ -35,8 +33,6 @@ const NewMovieList: React.FC = () => {
       setEndDateFetch(endDate);
     }
   }, [startDate, endDate]);
-
-  //   *******************************************
 
   const { data, isLoading, isError, refetch } = useGetMoviesQuery({
     page,
@@ -65,14 +61,6 @@ const NewMovieList: React.FC = () => {
     }
   }, [data]);
 
-  //   useEffect(() => {
-  //     if (data) {
-  //       setMovieList((movieList) => [...movieList, ...data.results]);
-
-  //       setHasMore(data.results.length > 0); // Set hasMore to false if there are no more results
-  //     }
-  //   }, [data]);
-
   const fetchNextPage = () => {
     setPage((prevPage) => prevPage + 1);
   };
@@ -86,8 +74,7 @@ const NewMovieList: React.FC = () => {
   }
 
   return (
-    <>
-      <h1 className="text-3xl">NewMovieList: data fetching is successful!!!</h1>
+    <div>
       <h3 className="mb-12 text-2xl">Here goes the list of the movies:</h3>
       <div className=" w-5/6 mx-auto">
         {movieList && (
@@ -112,8 +99,8 @@ const NewMovieList: React.FC = () => {
           </InfiniteScroll>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
-export default NewMovieList;
+export default MovieList;
