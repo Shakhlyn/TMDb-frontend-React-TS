@@ -4,92 +4,141 @@ import { useParams, Link } from "react-router-dom";
 import { BsBookmarkPlusFill } from "react-icons/bs";
 import { FaImdb } from "react-icons/fa6";
 
-import { useGetMovieDetailsQuery } from "../../slice/movieApiSlice";
+import {
+  useGetMovieDetailsQuery,
+  useGetCreditsQuery,
+} from "../../slice/movieApiSlice";
 
 import Rating from "../../component/Rating";
+import Loader from "../../component/Loader";
+import Error from "../../component/Error";
 
 const MovieDetailsScreen: React.FC = () => {
   const { movieId } = useParams<{ movieId: any }>();
-  //   const { movieId } = useParams();
-
-  console.log(typeof movieId);
 
   const { data: movie, isLoading, isError } = useGetMovieDetailsQuery(movieId);
+  const { data: credits, isError: isCreditError } = useGetCreditsQuery(movieId);
 
+  //
   if (isLoading) {
-    return <p>Loading ... </p>;
+    return <Loader />;
   }
 
   if (!movie || isError) {
-    return <h3>Something went wrong</h3>;
+    return <Error message="Please try again" />;
+  }
+  //   if (isCreditLoading && !isLoading) {
+  //     return <Loader />;
+  //   }
+
+  if (!credits || isCreditError) {
+    return <Error message="Please try again" />;
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="mb-2">
-        <div className="flex flex-row justify-between mb-4">
-          <h1 className="text-3xl font-bold">{movie.title}</h1>
+    <div className=" w-11/12 mx-auto px-4 py-8">
+      <section>
+        <div className="mb-2">
+          <div className="flex flex-row justify-between mb-4">
+            <h1 className="text-3xl font-bold">{movie.title}</h1>
 
-          <div className="flex gap-4 items-center">
-            <Rating
-              vote_average={movie.vote_average}
-              vote_count={movie.vote_count}
-            />
-            {/* <p className="text-yellow-500">
-              Rating: {`${movie.vote_average}/10`}{" "}
-            </p>
-            <p>Votes: {movie.vote_count}</p> */}
-            <BsBookmarkPlusFill
-              className="text-rose-500 cursor-pointer text-2xl"
-              onClick={() => alert("Saved in your watchlist")}
-            />
-            <Link to={`https://www.imdb.com/title/${movie.imdb_id}`}>
-              <FaImdb className="bg-yellow-500 text-black text-2xl " />
-            </Link>
+            <div className="flex gap-4 items-center">
+              <Rating
+                vote_average={movie.vote_average}
+                vote_count={movie.vote_count}
+              />
+
+              <BsBookmarkPlusFill
+                className="text-rose-500 cursor-pointer text-2xl"
+                onClick={() => alert("Saved in your watchlist")}
+              />
+              <Link to={`https://www.imdb.com/title/${movie.imdb_id}`}>
+                <FaImdb className="bg-yellow-500 text-black text-2xl " />
+              </Link>
+            </div>
+          </div>
+          <div className="flex flex-row">
+            <span>{movie.release_date}</span>
+            <span className="mx-4"> | </span>
+
+            <span>
+              <ul className="list-disc list-inside flex flex-row ">
+                {movie.genres.map((genre) => (
+                  <li key={genre.id} className="mr-4">
+                    {genre.name}
+                  </li>
+                ))}
+              </ul>
+            </span>
+            <span> | </span>
+            <span className="ml-4">Run Time: {movie.runtime}</span>
           </div>
         </div>
-        <div className="flex flex-row">
-          <span>{movie.release_date}</span>
-          <span className="mx-4"> | </span>
+        <div className="flex">
+          {/* <div> */}
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="w-64 h-auto"
+          />
+          {/* </div> */}
+          <div className="ml-8">
+            <p className="text-lg">{movie.tagline}</p>
 
-          <span>
-            <ul className="list-disc list-inside flex flex-row ">
-              {movie.genres.map((genre) => (
-                <li key={genre.id} className="mr-4">
-                  {genre.name}
-                </li>
-              ))}
-            </ul>
-          </span>
-          <span> | </span>
-          <span className="ml-4">Run Time: {movie.runtime}</span>
-        </div>
-      </div>
-      <div className="flex">
-        {/* <div> */}
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          className="w-64 h-auto"
-        />
-        {/* </div> */}
-        <div className="ml-8">
-          <p className="text-lg">{movie.tagline}</p>
-
-          <div className="mt-4">
-            <h2 className="text-lg font-semibold">Overview</h2>
-            <p className="">{movie.overview}</p>
+            <div className="mt-4">
+              <h2 className="text-lg font-semibold">Overview</h2>
+              <p className="">{movie.overview}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="mt-4">
-        <h2 className="text-lg font-semibold">Production Companies</h2>
-        <ul className="list-disc list-inside">
-          {movie.production_companies?.map((company) => (
-            <li key={company.id}>{company.name}</li>
-          ))}
-        </ul>
-      </div>
+      </section>
+      <section>
+        <div className="mt-4">
+          <h2 className="text-lg font-semibold">Production Companies</h2>
+          <ul className="list-disc list-inside">
+            {movie.production_companies?.map((company, index) => (
+              <li key={index}>{company.name}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {credits && (
+        <section>
+          <div className="flex flex-row gap-8 w-full">
+            <div className=" w-1/2 shadow-rose-400 shadow-md px-3 py-4 ">
+              <h1 className="text-center text-2xl mb-4">Casts</h1>
+              {credits?.cast &&
+                credits?.cast.map((cast, index) => (
+                  <div key={`${cast.id}-${index}`} className=" mb-4">
+                    <div className="flex flex-row justify-between">
+                      <h3>{cast.name}</h3>
+                      <p>Popularity: {cast.popularity.toFixed(0)}</p>
+                    </div>
+                    <p>Character: {cast.character}</p>
+                  </div>
+                ))}
+            </div>
+            <div className=" w-1/2  shadow-rose-400 shadow-md px-3 py-4 ">
+              <h1 className="text-center text-2xl mb-4">Casts</h1>
+              <div className="mb-3 flex flex-row justify-between">
+                <p className="text-lg">Name</p>
+                <p className="text-lg">Job</p>
+              </div>
+              {credits?.crew &&
+                credits?.crew.map((crew, index) => (
+                  <div
+                    key={`${crew.id}-${index}`}
+                    className="mb-3 flex flex-row justify-between text-left"
+                  >
+                    <h3>{crew.name}</h3>
+                    <p>{crew.job}</p>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 };

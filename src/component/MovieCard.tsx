@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BsBookmarkPlusFill } from "react-icons/bs";
 
-import { Movie } from "../slice/movieApiSlice";
+import { Movie } from "../interfaces/movieInterface";
 
 import Rating from "./Rating";
 
