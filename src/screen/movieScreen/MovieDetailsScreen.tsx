@@ -6,6 +6,8 @@ import { FaImdb } from "react-icons/fa6";
 
 import { useGetMovieDetailsQuery } from "../../slice/movieApiSlice";
 
+import Rating from "../../component/Rating";
+
 const MovieDetailsScreen: React.FC = () => {
   const { movieId } = useParams<{ movieId: any }>();
   //   const { movieId } = useParams();
@@ -27,11 +29,16 @@ const MovieDetailsScreen: React.FC = () => {
       <div className="mb-2">
         <div className="flex flex-row justify-between mb-4">
           <h1 className="text-3xl font-bold">{movie.title}</h1>
+
           <div className="flex gap-4 items-center">
-            <p className="text-yellow-500">
+            <Rating
+              vote_average={movie.vote_average}
+              vote_count={movie.vote_count}
+            />
+            {/* <p className="text-yellow-500">
               Rating: {`${movie.vote_average}/10`}{" "}
             </p>
-            <p>Votes: {movie.vote_count}</p>
+            <p>Votes: {movie.vote_count}</p> */}
             <BsBookmarkPlusFill
               className="text-rose-500 cursor-pointer text-2xl"
               onClick={() => alert("Saved in your watchlist")}
@@ -67,14 +74,11 @@ const MovieDetailsScreen: React.FC = () => {
         />
         {/* </div> */}
         <div className="ml-8">
-          <p className="text-gray-700 text-sm">{movie.tagline}</p>
-          {/* <p className="text-gray-700">Release Date: {movie.release_date}</p> */}
-          {/* <p className="text-gray-700">Runtime: {movie.runtime} minutes</p> */}
+          <p className="text-lg">{movie.tagline}</p>
 
-          {/* <p className="text-gray-700">Vote Average: {movie.vote_average}</p> */}
           <div className="mt-4">
             <h2 className="text-lg font-semibold">Overview</h2>
-            <p className="text-gray-700">{movie.overview}</p>
+            <p className="">{movie.overview}</p>
           </div>
         </div>
       </div>
@@ -86,14 +90,6 @@ const MovieDetailsScreen: React.FC = () => {
           ))}
         </ul>
       </div>
-      {/* <div className="mt-8">
-        <h2 className="text-lg font-semibold">Backdrop</h2>
-        <img
-          src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-          alt="Backdrop"
-          className="mt-4"
-        />
-      </div> */}
     </div>
   );
 };

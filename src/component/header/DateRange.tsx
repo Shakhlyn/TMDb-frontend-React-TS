@@ -34,8 +34,8 @@ const DateRange: React.FC = ({}) => {
       } else {
         alert("Start date cannot be after end date.");
       }
-      setSearchStartDate(null);
-      setSearchEndDate(null);
+      // setSearchStartDate(null);
+      // setSearchEndDate(null);
     } else {
       alert(
         "Please selecet both the start date and the end date to search movies between the two dates!"

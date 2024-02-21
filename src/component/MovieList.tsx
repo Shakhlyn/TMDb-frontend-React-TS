@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-// import { BsBookmarkPlusFill } from "react-icons/bs";
-
 import { useGetMoviesQuery } from "../slice/movieApiSlice";
-
 import { useAppSelector } from "../slice/hooks";
+
 import MovieCard from "./MovieCard";
+import Loader from "./Loader";
+import Error from "./Error";
 
 const MovieList: React.FC = () => {
   const startDateFromStore = useAppSelector((state) => state.dates.startDate);
@@ -40,7 +40,7 @@ const MovieList: React.FC = () => {
 
   const [page, setPage] = useState<number>(1);
 
-  const { data, isLoading, isError, isFetching } = useGetMoviesQuery({
+  const { data, isLoading, isError, isFetching, error } = useGetMoviesQuery({
     page,
     startDateToFetch,
     endDateToFetch,
@@ -69,11 +69,11 @@ const MovieList: React.FC = () => {
   }, [page, isFetching, startDateToFetch, endDateToFetch]);
 
   if (isLoading) {
-    return <h1>Loading ...</h1>;
+    return <Loader />;
   }
 
   if (isError) {
-    return <h1>Some thing went wrong</h1>;
+    return <Error message="Please try again with proper input values" />;
   }
 
   return (

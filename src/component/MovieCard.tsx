@@ -4,6 +4,8 @@ import { BsBookmarkPlusFill } from "react-icons/bs";
 
 import { Movie } from "../slice/movieApiSlice";
 
+import Rating from "./Rating";
+
 interface MoviePropsType {
   movie: Movie;
   index: number;
@@ -48,10 +50,15 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
             />
           </div>
 
-          <div className="flex flex-row gap-4 mb-4 ">
-            <p>Rating: {movie.vote_average.toFixed(1)} </p>
-            <p>Total votes: {movie.vote_count} </p>
-            <p> Popularity: {movie.popularity.toFixed(1)} </p>
+          <div className="flex flex-row items-start gap-4 mb-4 ">
+            <Rating
+              vote_average={movie.vote_average}
+              vote_count={movie.vote_count}
+              popularity={movie.popularity}
+            />
+            {/* <p>Rating: {movie.vote_average.toFixed(1)} </p>
+            <p>Total votes: {movie.vote_count} </p> */}
+            {/* <p> Popularity: {movie.popularity.toFixed(1)} </p> */}
           </div>
           <p>{movie.overview} </p>
         </div>
