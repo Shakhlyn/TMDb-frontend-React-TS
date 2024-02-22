@@ -171,7 +171,7 @@ const MovieDetailsScreen: React.FC = () => {
       )}
       {/* section for similar movies: */}
       {isSimilarMovieLoading && <p>Loading ...</p>}
-      {similarMovies && (
+      {similarMovies && similarMovies.length > 0 && (
         <Movies movies={similarMovies} headLine="Similar movies" />
       )}
     </div>
