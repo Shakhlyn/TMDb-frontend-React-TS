@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
   RouterProvider,
 } from "react-router-dom";
@@ -21,7 +22,10 @@ import WatchListScreen from "./screen/watchListScreen/WatchListScreen.tsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="" element={<HomeScreen />} />
+      {/* If roote URL is accessed, it will redirect to "/movie" */}
+      <Route path="" element={<Navigate to="movie" />} />
+
+      <Route path="movie" element={<HomeScreen />} />
 
       <Route path="movies" element={<MovieList />} />
       <Route path="watchlist" element={<WatchListScreen />} />
