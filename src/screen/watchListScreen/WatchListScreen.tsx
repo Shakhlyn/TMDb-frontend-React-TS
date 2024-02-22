@@ -32,7 +32,7 @@ const WatchListScreen: React.FC = () => {
                   className="col-span-1 flex flex-row items-center justify-around h-full hover:scale-110 transition-transform duration-[400ms]"
                 >
                   <Link
-                    to={`/movie/${movie.movie.id}`}
+                    to={`/movies/${movie.movie.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full"
@@ -68,7 +68,7 @@ export default WatchListScreen;
             //   className="col-span-1 flex flex-row items-center justify-around h-full hover:scale-110 transition-transform duration-[400ms]"
             // >
             //   <Link
-            //     to={`/movie/${movie.id}`}
+            //     to={`/movies/${movie.id}`}
             //     target="_blank"
             //     rel="noopener noreferrer"
             //     className="w-full"

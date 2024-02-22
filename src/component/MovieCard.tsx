@@ -26,7 +26,7 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
     <div>
       <div className=" w-full flex flex-row gap-4 mb-10 p-2 rounded shadow shadow-gray-800 ">
         <div>
-          <Link to={`/movie/${movie.id}`}>
+          <Link to={`/movies/${movie.id}`}>
             <img
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt="image"
@@ -38,14 +38,14 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
           <div className="flex justify-between mb-1">
             <div className="flex gap-1">
               {movie.title === movie.original_title ? (
-                <Link to={`/movie/${movie.id}`}>
+                <Link to={`/movies/${movie.id}`}>
                   <h2>
                     {`${index + 1}. `}
                     {movie.original_title}
                   </h2>
                 </Link>
               ) : (
-                <Link to={`/movie/${movie.id}`}>
+                <Link to={`/movies/${movie.id}`}>
                   <h2>
                     {`${index + 1}. `}
                     {movie.original_title} - ({movie.title})

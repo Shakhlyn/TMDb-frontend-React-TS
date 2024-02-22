@@ -21,7 +21,7 @@ const SearchBox: React.FC = () => {
 
     if (urlSearchKeyword.trim()) {
       setUrlSearchKeyword("");
-      navigate(`/movie/${urlSearchKeyword}`);
+      navigate(`/movies/${urlSearchKeyword}`);
     } else {
       navigate("/");
     }

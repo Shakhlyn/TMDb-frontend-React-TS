@@ -29,7 +29,7 @@ const router = createBrowserRouter(
 
       <Route path="movies" element={<MovieList />} />
       <Route path="watchlist" element={<WatchListScreen />} />
-      <Route path="movie/:movieId" element={<MovieDetailsScreen />} />
+      <Route path="movies/:movieId" element={<MovieDetailsScreen />} />
       <Route path="movies/:startDate/:endDate" element={<MovieList />} />
     </Route>
   )
