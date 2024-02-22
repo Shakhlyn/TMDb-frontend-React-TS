@@ -9,8 +9,11 @@ import {
   useGetCreditsQuery,
   useGetSimilarMoviesQuery,
 } from "../../slice/movieApiSlice";
+import { addMovieToWatchList } from "../../slice/watchListSlice";
 
-import { Movie } from "../../interfaces/movieInterface";
+import { useAppDispatch } from "../../slice/hooks";
+
+import { Movie, MovieDetailsResponse } from "../../interfaces/movieInterface";
 
 import Rating from "../../component/Rating";
 import Loader from "../../component/Loader";
@@ -19,6 +22,8 @@ import Error from "../../component/Error";
 import Movies from "../../component/Movies";
 
 const MovieDetailsScreen: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const [similarMovies, setSimilarMovies] = useState<Movie[]>();
 
   const { movieId } = useParams<{ movieId: any }>();
@@ -32,7 +37,14 @@ const MovieDetailsScreen: React.FC = () => {
     if (data) {
       setSimilarMovies(data.results);
     }
-  });
+  }, [data]);
+
+  const addMovieToWatchListHandler: (movie: MovieDetailsResponse) => void = (
+    movie
+  ) => {
+    dispatch(addMovieToWatchList(movie));
+    alert("Saved in your watchlist");
+  };
 
   //
   if (isLoading) {
@@ -63,7 +75,8 @@ const MovieDetailsScreen: React.FC = () => {
 
                 <BsBookmarkPlusFill
                   className="text-rose-500 cursor-pointer text-2xl"
-                  onClick={() => alert("Saved in your watchlist")}
+                  onClick={() => addMovieToWatchListHandler(movie)}
+                  // alert("Saved in your watchlist")
                 />
                 <Link to={`https://www.imdb.com/title/${movie.imdb_id}`}>
                   <FaImdb className="bg-yellow-500 text-black text-2xl " />

@@ -4,11 +4,13 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 
 import { apiSlice } from "./slice/apiSlice";
 import datesSliceReducer from "./slice/datesSlice";
+import watchListReducer from "./slice/watchListSlice";
 
 const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     dates: datesSliceReducer,
+    watchList: watchListReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

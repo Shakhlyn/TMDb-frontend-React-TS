@@ -4,6 +4,9 @@ import { BsBookmarkPlusFill } from "react-icons/bs";
 
 import { Movie } from "../interfaces/movieInterface";
 
+import { addMovieToWatchList } from "../slice/watchListSlice";
+import { useAppDispatch } from "../slice/hooks";
+
 import Rating from "./Rating";
 
 interface MoviePropsType {
@@ -12,6 +15,13 @@ interface MoviePropsType {
 }
 
 const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
+  const dispatch = useAppDispatch();
+
+  const addMovieToWatchListHandler: (movie: Movie) => void = (movie) => {
+    dispatch(addMovieToWatchList(movie));
+    alert("Saved in your watchlist");
+  };
+
   return (
     <div>
       <div className=" w-full flex flex-row gap-4 mb-10 p-2 rounded shadow shadow-gray-800 ">
@@ -44,9 +54,11 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
               )}
               <p>({movie.release_date})</p>
             </div>
+
             <BsBookmarkPlusFill
-              className="text-rose-500 cursor-pointer "
-              onClick={() => alert("Saved in your watchlist")}
+              className="text-rose-500 cursor-pointer text-2xl"
+              onClick={() => addMovieToWatchListHandler(movie)}
+              // alert("Saved in your watchlist")
             />
           </div>
 
@@ -56,9 +68,6 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
               vote_count={movie.vote_count}
               popularity={movie.popularity}
             />
-            {/* <p>Rating: {movie.vote_average.toFixed(1)} </p>
-            <p>Total votes: {movie.vote_count} </p> */}
-            {/* <p> Popularity: {movie.popularity.toFixed(1)} </p> */}
           </div>
           <p>{movie.overview} </p>
         </div>
