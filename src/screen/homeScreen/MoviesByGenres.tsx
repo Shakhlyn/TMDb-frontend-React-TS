@@ -27,12 +27,7 @@ const MoviesByGenres: React.FC<genrePropsType> = ({ genre }) => {
             key={movie.id}
             className="col-span-1 flex flex-row items-center justify-around h-full hover:scale-110 transition-transform duration-[400ms]"
           >
-            <Link
-              to={`/movies/${movie.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full"
-            >
+            <Link to={`/movies/${movie.id}`} className="w-full">
               <img
                 src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                 alt="image"
