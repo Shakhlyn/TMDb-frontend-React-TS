@@ -1,31 +1,88 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useAppSelector } from "../../slice/hooks";
 
 const WatchListScreen: React.FC = () => {
   const watchList = useAppSelector((state) => state.watchList.movies);
 
   const sortedMoviesByAddingToWatchlistTime = watchList
-    ? [...watchList].sort((a, b) => b.timestamp - a.timestamp)
+    ? [...watchList].sort((a, b) => a.timestamp - b.timestamp)
     : [];
-
-  /*
-    "TypeError: Cannot assign to read-only property '0' of object '[object Array]'", typically occurs when you try to modify an array that is read-only. This can happen in situations where you're attempting to sort an array that is immutable, such as an array returned from a Redux selector.
-
-In your code, you're using useAppSelector from Redux Toolkit to retrieve the watchList array from the Redux store. However, the sort method mutates the array in place, which is not allowed when using Redux state. Redux state should remain immutable.
-    */
+  //watchlist comes from reducer.Hence use copied version.
 
   return (
-    <section>
-      {sortedMoviesByAddingToWatchlistTime &&
-        sortedMoviesByAddingToWatchlistTime.map((movie, index) => (
-          //   <Movies movies={movie} />
-          <p key={index}>
-            <span>{index}. </span>
-            <span>{movie.movie.title}</span>
-          </p>
-        ))}
+    <section className="my-10">
+      <h1 className="text-lg font-semibold text-rose-700 bg-yellow-400 w-fit px-2 py-1 rounded">
+        Watchlist:
+      </h1>
+
+      {watchList.length === 0 && (
+        <div className="text-2xl bg-slate-700 text-rose-100 mt-10 mx-auto w-10/12 h-fit p-4 rounded-sm ">
+          You have not added movies to your watchlist yet!
+        </div>
+      )}
+
+      {watchList.length > 0 && (
+        <div className="m-4 shadow-sm rounded shadow-rose-900">
+          <div className="grid grid-cols-6 gap-4 w-full h-auto p-2">
+            {sortedMoviesByAddingToWatchlistTime &&
+              sortedMoviesByAddingToWatchlistTime.map((movie) => (
+                <div
+                  key={movie.movie.id}
+                  className="col-span-1 flex flex-row items-center justify-around h-full hover:scale-110 transition-transform duration-[400ms]"
+                >
+                  <Link
+                    to={`/movie/${movie.movie.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full"
+                  >
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500/${movie.movie.poster_path}`}
+                      alt="image"
+                      className="w-full h-auto object-cover rounded-lg hover:"
+                    />
+                    <p className="text-center text-sm mt-2 truncate">
+                      {movie.movie.title}
+                    </p>
+                  </Link>
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 };
 
 export default WatchListScreen;
+
+/*
+
+      <div className="mx-4 my-2 shadow-sm rounded shadow-rose-900">
+        <div className="grid grid-cols-6 gap-4 w-full h-auto p-2">
+          {movies.map((movie) => (
+            
+            // <div
+            //   key={movie.id}
+            //   className="col-span-1 flex flex-row items-center justify-around h-full hover:scale-110 transition-transform duration-[400ms]"
+            // >
+            //   <Link
+            //     to={`/movie/${movie.id}`}
+            //     target="_blank"
+            //     rel="noopener noreferrer"
+            //     className="w-full"
+            //   >
+            //     <img
+            //       src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            //       alt="image"
+            //       className="w-full h-auto object-cover rounded-lg hover:"
+            //     />
+            //     <p className="text-center text-sm mt-2 truncate">
+            //       {movie.title}
+            //     </p>
+            //   </Link>
+            // </div>
+          // ))}
+
+*/
