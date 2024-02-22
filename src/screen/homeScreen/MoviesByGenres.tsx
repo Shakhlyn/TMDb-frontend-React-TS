@@ -25,15 +25,21 @@ const MoviesByGenres: React.FC<genrePropsType> = ({ genre }) => {
         {movieList.map((movie) => (
           <div
             key={movie.id}
-            className="col-span-1 flex flex-row items-center justify-around h-full"
+            className="col-span-1 flex flex-row items-center justify-around h-full hover:scale-110 transition-transform duration-[400ms]"
           >
-            <Link to={`/movie/${movie.id}`} className="w-full">
+            <Link
+              to={`/movie/${movie.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full"
+            >
               <img
                 src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                 alt="image"
                 className="w-full h-auto object-cover rounded-lg hover:"
               />
-              <p className="text-center text-sm mt-2">{movie.title}</p>
+              {/* <p className="text-center text-sm mt-2 overflow-hidden whitespace-nowrap overflow-ellipsis "> */}
+              <p className="text-center text-sm mt-2 truncate">{movie.title}</p>
             </Link>
           </div>
         ))}
