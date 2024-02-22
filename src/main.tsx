@@ -22,11 +22,11 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<HomeScreen />} />
-      <Route path="movie/:movieId" element={<MovieDetailsScreen />} />
 
       <Route path="movies" element={<MovieList />} />
-      <Route path="movies/:startDate/:endDate" element={<MovieList />} />
       <Route path="watchlist" element={<WatchListScreen />} />
+      <Route path="movie/:movieId" element={<MovieDetailsScreen />} />
+      <Route path="movies/:startDate/:endDate" element={<MovieList />} />
     </Route>
   )
 );
