@@ -42,9 +42,10 @@ This project is a movie catalogue website built using ReactJS and TypeScript, le
 ## Setup Instructions
 
 1. Clone the repository.
-2. Install dependencies using `npm install`.
-3. Obtain a TMDb API key from [TMDb website](https://www.themoviedb.org/documentation/api) and add it to the project configuration.
-4. Start the development server using `npm run dev`.
+2. `cd TMDb-frontend-React-TS`
+3. Install dependencies using `npm install`.
+4. Obtain a TMDb API key from [TMDb website](https://www.themoviedb.org/documentation/api) and add it to the project configuration.
+5. Start the development server using `npm run dev`.
 
 ## Usage
 

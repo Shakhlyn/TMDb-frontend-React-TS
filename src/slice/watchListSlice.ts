@@ -10,10 +10,14 @@ interface WatchListType {
   movies: WatchListItemType[];
 }
 
+// const initialState: WatchListType = {
+//   movies: localStorage.getItem("watchList")
+//     ? JSON.parse(localStorage.getItem("watchList"))
+//     : [],
+// };
+
 const initialState: WatchListType = {
-  movies: localStorage.getItem("watchList")
-    ? JSON.parse(localStorage.getItem("watchList"))
-    : [],
+  movies: JSON.parse(localStorage.getItem("watchList") || "[]"),
 };
 
 const watchListSlice = createSlice({
