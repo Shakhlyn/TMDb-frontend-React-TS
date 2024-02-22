@@ -1,5 +1,9 @@
 # Movie Catalogue Website
 
+Live Deployed Link: [TMDb React-TS](https://tmdb-shakhlyn.vercel.app/)
+
+## About
+
 This project is a movie catalogue website built using ReactJS and TypeScript, leveraging The Movie Database (TMDb) API to fetch movie information. The goal of this project is to provide users with a platform where they can explore movies based on different genres, add movies to their watchlist, and view detailed information about each movie.
 
 ## Features
