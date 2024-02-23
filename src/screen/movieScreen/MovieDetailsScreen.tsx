@@ -62,7 +62,7 @@ const MovieDetailsScreen: React.FC = () => {
   return (
     <div className="w-[98%] md:w-11/12 mx-auto px-4 py-8">
       {movie && (
-        <section>
+        <section className="w-full">
           <div className="mb-6">
             <div className="flex flex-row justify-between mb-4">
               <h1 className=" mobile:text-lg sm:text-xl md:text-3xl mobile:font-semibold md:font-bold">
@@ -92,30 +92,29 @@ const MovieDetailsScreen: React.FC = () => {
           </div>
           <div>
             <div className="flex">
-              {/* <div> */}
+              {/* <div className="col-span-4"> */}
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}
                 className=" w-1/3 h-fit md:w-64 md:h-auto"
               />
               {/* </div> */}
-              <div className="ml-8 flex flex-col gap-4">
-                <p className=" mobile:text-sm md:text-lg">{movie.tagline}</p>
+              <div className="ml-8 flex flex-col gap-4 w-2/3">
+                <p className="text-mobile sm:text-sm">{movie.tagline}</p>
 
-                <div>
-                  <ul className="list-none flex flex-row ">
-                    {movie.genres.map((genre) => (
-                      <li
-                        key={genre.id}
-                        className=" mobile:px-2 mobile:py-1 md:px-4 md:py-2 mx-1 mobile:text:mobile sm:text-sm h-fit rounded-3xl shadow-sm shadow-rose-800 "
-                      >
-                        {genre.name}
-                      </li>
-                    ))}
-                  </ul>
+                <div className="flex flex-wrap">
+                  {movie.genres.map((genre) => (
+                    <p
+                      key={genre.id}
+                      // className="mx-1 mobile:text:mobile sm:text-sm"
+                      className=" mobile:px-1 mobile:py-[.125rem] md:px-2 md:py-1 mx-[.15rem] text-mobile sm:text-sm h-fit rounded-3xl shadow-sm shadow-rose-800 "
+                    >
+                      {genre.name}
+                    </p>
+                  ))}
                 </div>
 
-                <div className=" sm:hidden flex flex-col gap-1">
+                <div className=" sm:hidden flex flex-col gap-1 text-mobile ">
                   <p>Release Date: {movie.release_date}</p>
                   <p>Run Time: {movie.runtime} minutes</p>
                 </div>
