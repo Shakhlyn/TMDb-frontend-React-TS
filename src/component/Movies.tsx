@@ -16,7 +16,7 @@ const Movies: React.FC<MoviesType> = ({ movies, headLine }) => {
       </h1>
 
       <div className="mx-4 my-2 shadow-sm rounded shadow-rose-900">
-        <div className="grid grid-cols-6 gap-4 w-full h-auto p-2">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-4 w-full h-auto p-2">
           {movies.map((movie) => (
             <div
               key={movie.id}
