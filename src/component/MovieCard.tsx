@@ -30,13 +30,13 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
             <img
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt="image"
-              className=" w-40 h-auto "
+              className=" w-40 h-auto"
             />
           </Link>
         </div>
         <div className="w-full">
-          <div className="flex justify-between mb-1">
-            <div className="flex gap-1">
+          <div className="grid grid-cols-12 mb-1">
+            <div className=" col-span-10 gap-1">
               {movie.title === movie.original_title ? (
                 <Link to={`/movies/${movie.id}`}>
                   <h2>
@@ -52,24 +52,27 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
                   </h2>
                 </Link>
               )}
-              <p>({movie.release_date})</p>
+              {/* <p>({movie.release_date})</p> */}
             </div>
-
-            <BsBookmarkPlusFill
-              className="text-rose-500 cursor-pointer text-2xl"
-              onClick={() => addMovieToWatchListHandler(movie)}
-              // alert("Saved in your watchlist")
-            />
+            <div className="col-span-2 flex justify-end">
+              <BsBookmarkPlusFill
+                className="text-rose-500 cursor-pointer text-2xl"
+                onClick={() => addMovieToWatchListHandler(movie)}
+                // alert("Saved in your watchlist")
+              />
+            </div>
           </div>
 
-          <div className="flex flex-row items-start gap-4 mb-4 ">
+          <div className="flex items-start gap-4 ">
             <Rating
               vote_average={movie.vote_average}
               vote_count={movie.vote_count}
               popularity={movie.popularity}
             />
           </div>
-          <p>{movie.overview} </p>
+          <p>Release: {movie.release_date}</p>
+
+          <p className="hidden sm:block">{movie.overview} </p>
         </div>
       </div>
     </div>
