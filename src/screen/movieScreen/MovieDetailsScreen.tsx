@@ -60,18 +60,17 @@ const MovieDetailsScreen: React.FC = () => {
   }
 
   return (
-    <div className=" w-11/12 mx-auto px-4 py-8">
+    <div className="w-[98%] md:w-11/12 mx-auto px-4 py-8">
       {movie && (
         <section>
-          <div className="mb-2">
+          <div className="mb-6">
             <div className="flex flex-row justify-between mb-4">
-              <h1 className="text-3xl font-bold">{movie.title}</h1>
+              <h1 className=" mobile:text-lg sm:text-xl md:text-3xl mobile:font-semibold md:font-bold">
+                {movie.title}
+              </h1>
 
-              <div className="flex gap-4 items-center">
-                <Rating
-                  vote_average={movie.vote_average}
-                  vote_count={movie.vote_count}
-                />
+              <div className="flex mobile:gap-2 md:gap-4 items-center">
+                <Rating vote_average={movie.vote_average} />
 
                 <BsBookmarkPlusFill
                   className="text-rose-500 cursor-pointer text-2xl"
@@ -83,55 +82,85 @@ const MovieDetailsScreen: React.FC = () => {
                 </Link>
               </div>
             </div>
-            <div className="flex flex-row">
+            <div className=" hidden sm:flex sm:flex-row">
               <span>{movie.release_date}</span>
-              <span className="mx-4"> | </span>
+              <span className=" mobile:mx-2 sm:mx-4"> | </span>
 
-              <span>
-                <ul className="list-disc list-inside flex flex-row ">
-                  {movie.genres.map((genre) => (
-                    <li key={genre.id} className="mr-4">
-                      {genre.name}
-                    </li>
-                  ))}
-                </ul>
-              </span>
-              <span> | </span>
-              <span className="ml-4">Run Time: {movie.runtime}</span>
+              {/* <span> | </span> */}
+              <span>Run Time: {movie.runtime} minutes</span>
             </div>
           </div>
-          <div className="flex">
-            {/* <div> */}
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              className="w-64 h-auto"
-            />
-            {/* </div> */}
-            <div className="ml-8">
-              <p className="text-lg">{movie.tagline}</p>
+          <div>
+            <div className="flex">
+              {/* <div> */}
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+                className=" w-1/3 h-fit md:w-64 md:h-auto"
+              />
+              {/* </div> */}
+              <div className="ml-8 flex flex-col gap-4">
+                <p className=" mobile:text-sm md:text-lg">{movie.tagline}</p>
 
-              <div className="mt-4">
-                <h2 className="text-lg font-semibold">Overview</h2>
-                <p className="">{movie.overview}</p>
+                <div>
+                  <ul className="list-none flex flex-row ">
+                    {movie.genres.map((genre) => (
+                      <li
+                        key={genre.id}
+                        className=" mobile:px-2 mobile:py-1 md:px-4 md:py-2 mx-1 mobile:text:mobile sm:text-sm h-fit rounded-3xl shadow-sm shadow-rose-800 "
+                      >
+                        {genre.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className=" sm:hidden flex flex-col gap-1">
+                  <p>Release Date: {movie.release_date}</p>
+                  <p>Run Time: {movie.runtime} minutes</p>
+                </div>
+
+                <div className="mt-4 hidden sm:block">
+                  <h2 className="text-lg font-semibold">Overview</h2>
+                  <p className="">{movie.overview}</p>
+                </div>
               </div>
+            </div>
+
+            <div className="mt-4  sm:hidden">
+              <h2 className="text-lg font-semibold">Overview</h2>
+              <p className="">{movie.overview}</p>
             </div>
           </div>
         </section>
       )}
 
-      {/* {movie && (
-        <section>
-          <div className="mt-4">
-            <h2 className="text-lg font-semibold">Production Companies</h2>
-            <ul className="list-disc list-inside">
-              {movie.production_companies?.map((company, index) => (
-                <li key={index}>{company.name}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )} */}
+      {movie && (
+        <div className="grid grid-cols-12 mobile:gap-3 sm:gap-6 text-sm md:text-sm mt-12">
+          <section className=" col-span-7 ">
+            <div className="mt-4">
+              <h2 className="mb-2 text-lg font-semibold">Other information</h2>
+
+              <p>Original Title: {movie.original_title}</p>
+
+              <p>Total votes: {movie.vote_count}</p>
+              <p>Popularity: {movie.popularity.toFixed(0)}</p>
+              <p>Budget: ${movie.budget}</p>
+              <p>Box office: ${movie.revenue}</p>
+            </div>
+          </section>
+          <section className=" col-span-5 ">
+            <div className="mt-4">
+              <h2 className="">Production Companies</h2>
+              <ul className="list-disc list-inside">
+                {movie.production_companies?.map((company, index) => (
+                  <li key={index}>{company.name}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </div>
+      )}
 
       {credits && (
         <section className="my-20">

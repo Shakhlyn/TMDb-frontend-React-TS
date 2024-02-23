@@ -85,7 +85,7 @@ const MovieList: React.FC = () => {
             loader={<p>Loading ...</p>}
             endMessage={
               <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
+                <b>You have seen it all!</b>
               </p>
             }
           >
