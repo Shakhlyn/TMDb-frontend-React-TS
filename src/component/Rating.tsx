@@ -8,15 +8,15 @@ interface RatingPropsType {
 
 const Rating: React.FC<RatingPropsType> = (props) => {
   return (
-    <div className="flex flex-col sm:flex-row gap-[.125rem] sm:gap-4 items-center text-sm mb-1">
-      <div className="flex flex-row gap-1 items-center justify-between">
-        <div className="flex flex-row gap-1 items-center">
-          <FaStar className="text-yellow-500 inline" />
-          <p>
-            <strong>{props.vote_average.toFixed(1)}</strong>
-          </p>
-        </div>
+    <div className="flex flex-row gap-4 items-center text-sm mb-1">
+      {/* <div className="flex flex-row gap-1 items-center "> */}
+      <div className="flex flex-row gap-1 items-center justify-start ">
+        <FaStar className="text-yellow-500 inline" />
+        <p>
+          <strong>{props.vote_average.toFixed(1)}</strong>
+        </p>
       </div>
+      {/* </div> */}
       <div>
         {props.popularity && <p>Popularity: {props.popularity.toFixed(0)}</p>}
       </div>
