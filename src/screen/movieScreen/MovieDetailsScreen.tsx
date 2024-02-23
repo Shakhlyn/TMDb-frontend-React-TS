@@ -136,10 +136,12 @@ const MovieDetailsScreen: React.FC = () => {
       )}
 
       {movie && (
-        <div className="grid grid-cols-12 mobile:gap-3 sm:gap-6 text-sm md:text-sm mt-12">
+        <div className="grid grid-cols-12 mobile:gap-3 sm:gap-6 text-sm md:text-lg mt-12">
           <section className=" col-span-7 ">
             <div className="mt-4">
-              <h2 className="mb-2 text-lg font-semibold">Other information</h2>
+              <h2 className="mb-2 text-lg md:text-xl font-semibold">
+                Other information
+              </h2>
 
               <p>Original Title: {movie.original_title}</p>
 
@@ -151,7 +153,9 @@ const MovieDetailsScreen: React.FC = () => {
           </section>
           <section className=" col-span-5 ">
             <div className="mt-4">
-              <h2 className="">Production Companies</h2>
+              <h2 className="mb-2 text-lg md:text-xl font-semibold">
+                Production Companies
+              </h2>
               <ul className="list-disc list-inside">
                 {movie.production_companies?.map((company, index) => (
                   <li key={index}>{company.name}</li>
@@ -163,37 +167,89 @@ const MovieDetailsScreen: React.FC = () => {
       )}
 
       {credits && (
-        <section className="my-20">
-          <div className="flex flex-row gap-8 w-full">
-            <div className=" w-1/2 shadow-rose-800 shadow-sm px-3 py-4 ">
+        <section className="my-20 lg:w-10/12 mx-auto">
+          <div className="flex flex-col gap-8 w-full">
+            <div>
               <h1 className="text-center text-2xl mb-4">Casts</h1>
-              {credits?.cast &&
-                credits?.cast.map((cast, index) => (
-                  <div key={`${cast.id}-${index}`} className=" mb-4">
-                    <div className="flex flex-row justify-between">
-                      <h3>{cast.name}</h3>
-                      <p>Popularity: {cast.popularity.toFixed(0)}</p>
-                    </div>
-                    <p>Character: {cast.character}</p>
-                  </div>
-                ))}
-            </div>
-            <div className=" w-1/2  shadow-rose-800 shadow-sm px-3 py-4 ">
-              <h1 className="text-center text-2xl mb-4">Crews</h1>
-              <div className="mb-3 flex flex-row justify-between">
-                <p className="text-lg">Name</p>
-                <p className="text-lg">Job</p>
+              <div className="w-full mx-auto shadow-rose-800 shadow-sm px-3 py-4 grid grid-cols-2 gap-4">
+                <div className="col-span-1">
+                  {credits?.cast &&
+                    credits?.cast
+                      .slice(0, Math.ceil(credits.cast.length / 2))
+                      .map((cast, index) => (
+                        <div
+                          key={`${cast.id}-${index}`}
+                          className="mb-8 flex flex-col gap-1"
+                        >
+                          <h3>
+                            {index + 1}. {cast.name}
+                          </h3>
+                          <p>Character: {cast.character}</p>
+                          <p>Popularity: {cast.popularity.toFixed(0)}</p>
+                        </div>
+                      ))}
+                </div>
+                <div className="col-span-1">
+                  {credits?.cast &&
+                    credits?.cast
+                      .slice(Math.ceil(credits.cast.length / 2))
+                      .map((cast, index) => (
+                        <div
+                          key={`${cast.id}-${index}`}
+                          className="mb-8 flex flex-col gap-1"
+                        >
+                          <h3>
+                            {index + Math.ceil(credits.cast.length / 2) + 1}.{" "}
+                            {cast.name}
+                          </h3>
+                          <p>Character: {cast.character}</p>
+                          <p>Popularity: {cast.popularity.toFixed(0)}</p>
+                        </div>
+                      ))}
+                </div>
               </div>
-              {credits?.crew &&
-                credits?.crew.map((crew, index) => (
-                  <div
-                    key={`${crew.id}-${index}`}
-                    className="mb-3 flex flex-row justify-between text-left"
-                  >
-                    <h3>{crew.name}</h3>
-                    <p>{crew.job}</p>
-                  </div>
-                ))}
+            </div>
+
+            <div>
+              <h1 className="text-center text-2xl mb-4">Crews</h1>
+              <div className="w-full mx-auto shadow-rose-800 shadow-sm px-3 py-4 grid grid-cols-2 gap-4">
+                <div className="col-span-1">
+                  {credits?.crew &&
+                    credits?.crew
+                      .slice(0, Math.ceil(credits.crew.length / 2))
+                      .map((crew, index) => (
+                        <div
+                          key={`${crew.id}-${index}`}
+                          className="mb-8 flex flex-col gap-1"
+                        >
+                          <h3>
+                            {index + 1}. {crew.name}
+                          </h3>
+                          <p>Job: {crew.job}</p>
+                          <p>Popularity: {crew.popularity}</p>
+                        </div>
+                      ))}
+                </div>
+                <div className="col-span-1">
+                  {/* <h1 className="text-center text-2xl mb-4">Casts Right</h1> */}
+                  {credits?.crew &&
+                    credits?.crew
+                      .slice(Math.ceil(credits.crew.length / 2))
+                      .map((crew, index) => (
+                        <div
+                          key={`${crew.id}-${index}`}
+                          className="mb-8 flex flex-col gap-1"
+                        >
+                          <h3>
+                            {index + Math.ceil(credits.crew.length / 2) + 1}.{" "}
+                            {crew.name}
+                          </h3>
+                          <p>job: {crew.job}</p>
+                          <p>Popularity: {crew.popularity.toFixed(0)}</p>
+                        </div>
+                      ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
