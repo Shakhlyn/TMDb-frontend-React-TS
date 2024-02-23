@@ -66,7 +66,6 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
           <div className="flex items-start gap-4 ">
             <Rating
               vote_average={movie.vote_average}
-              vote_count={movie.vote_count}
               popularity={movie.popularity}
             />
           </div>

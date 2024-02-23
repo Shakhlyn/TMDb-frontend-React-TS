@@ -3,7 +3,6 @@ import { FaStar } from "react-icons/fa";
 
 interface RatingPropsType {
   vote_average: number;
-  vote_count?: number;
   popularity?: number;
 }
 
@@ -17,15 +16,6 @@ const Rating: React.FC<RatingPropsType> = (props) => {
             <strong>{props.vote_average.toFixed(1)}</strong>
           </p>
         </div>
-        {props.vote_count ? (
-          props.vote_count > 1 ? (
-            <p>({props.vote_count} votes)</p>
-          ) : (
-            <p>({props.vote_count} vote)</p>
-          )
-        ) : (
-          <p>(0 vote)</p>
-        )}
       </div>
       <div>
         {props.popularity && <p>Popularity: {props.popularity.toFixed(0)}</p>}
