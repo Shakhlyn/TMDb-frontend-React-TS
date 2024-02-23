@@ -1,4 +1,3 @@
-import { FaSistrix } from "react-icons/fa6";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -45,28 +44,29 @@ const DateRange: React.FC = ({}) => {
 
   return (
     <form onSubmit={changeDateHandler} className="flex flex-row mx-1">
-      <span> Date Range: </span>
-      <DatePicker
-        selected={searchStartDate}
-        onChange={(date: Date | null) => setSearchStartDate(date)}
-        className="mx-2 px-2 py-1 rounded-sm text-black text-mobile sm:text-sm mobile:w-20 md:w-20"
-        placeholderText="Start Date"
-        dateFormat="dd-MM-yyyy"
-      />
-      <span> - </span>
-      <DatePicker
-        selected={searchEndDate}
-        onChange={(date: Date | null) => setSearchEndDate(date)}
-        className="ml-2 px-2 py-1 rounded-s-sm text-black text-mobile sm:text-sm mobile:w-20 md:w-20"
-        placeholderText="End Date"
-        dateFormat="dd-MM-yyyy"
-      />
-      <button
-        type="submit"
-        className="px-2 py-1 bg-slate-400 hover:bg-slate-300 text-slate-100 hover:text-darkGray duration-300 rounded-e text-mobile sm:text-sm"
-      >
-        <FaSistrix />
-      </button>
+      <div>
+        <DatePicker
+          selected={searchStartDate}
+          onChange={(date: Date | null) => setSearchStartDate(date)}
+          placeholderText="Start Date"
+          dateFormat="dd-MM-yyyy"
+          className=" mobile:mx-[.125rem] sm:mx-1 mobile:w-14 sm:w-20 md:w-24 rounded-sm mobile:text-mobile sm:text-sm text-center text-gray-900"
+        />
+        <span>-</span>
+        <DatePicker
+          selected={searchEndDate}
+          onChange={(date: Date | null) => setSearchEndDate(date)}
+          placeholderText="End Date"
+          dateFormat="dd-MM-yyyy"
+          className=" mobile:mx-[.125rem] sm:mx-2 mobile:w-14 sm:w-20 md:w-24 rounded-sm mobile:text-mobile sm:text-sm text-center text-gray-900"
+        />
+        <button
+          type="submit"
+          className=" ml-2 mobile:text-mobile sm:text-sm md:text-lg  grid-cols-1 pb-1"
+        >
+          <div className="place-self-center">Search</div>
+        </button>
+      </div>
     </form>
   );
 };

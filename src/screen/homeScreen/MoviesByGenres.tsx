@@ -20,8 +20,8 @@ const MoviesByGenres: React.FC<genrePropsType> = ({ genre }) => {
   }, [data]);
 
   return (
-    <div className="mx-4 my-2 shadow-sm rounded shadow-rose-900">
-      <div className="grid grid-cols-5 gap-4 w-full h-auto p-2">
+    <section className="mx-4 my-2 shadow-sm rounded shadow-rose-900">
+      <div className="grid grid-cols2 sm:grid-cols-5 gap-4 w-full h-auto p-2">
         {movieList.map((movie) => (
           <div
             key={movie.id}
@@ -33,13 +33,12 @@ const MoviesByGenres: React.FC<genrePropsType> = ({ genre }) => {
                 alt="image"
                 className="w-full h-auto object-cover rounded-lg hover:"
               />
-              {/* <p className="text-center text-sm mt-2 overflow-hidden whitespace-nowrap overflow-ellipsis "> */}
               <p className="text-center text-sm mt-2 truncate">{movie.title}</p>
             </Link>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

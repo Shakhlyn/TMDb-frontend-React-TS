@@ -1,14 +1,14 @@
 import React from "react";
 
-import MovieList from "../../component/MovieList";
 import RandomMovies from "./RandomMovies";
+import MovieList from "../../component/MovieList";
 
 const HomeScreen: React.FC = () => {
   return (
-    <div className=" m-10 ">
+    <>
       <RandomMovies />
       <MovieList />
-    </div>
+    </>
   );
 };
 

@@ -14,6 +14,7 @@ const Movies: React.FC<MoviesType> = ({ movies, headLine }) => {
       <h1 className="text-lg font-semibold text-rose-700 bg-yellow-400 w-fit px-2 py-1 rounded">
         {headLine}:{" "}
       </h1>
+
       <div className="mx-4 my-2 shadow-sm rounded shadow-rose-900">
         <div className="grid grid-cols-6 gap-4 w-full h-auto p-2">
           {movies.map((movie) => (
