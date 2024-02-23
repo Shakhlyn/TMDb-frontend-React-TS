@@ -35,7 +35,7 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
           </Link>
         </div>
         <div className="w-full">
-          <div className="grid grid-cols-12 mb-1">
+          <div className="grid grid-cols-12 mb-4">
             <div className=" col-span-10 gap-1">
               {movie.title === movie.original_title ? (
                 <Link to={`/movies/${movie.id}`}>
@@ -72,7 +72,7 @@ const MovieCard: React.FC<MoviePropsType> = ({ movie, index }) => {
           </div>
           <p>Release: {movie.release_date}</p>
 
-          <p className="hidden sm:block">{movie.overview} </p>
+          <p className="hidden sm:block sm:mt-2">{movie.overview} </p>
         </div>
       </div>
     </div>
