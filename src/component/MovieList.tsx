@@ -74,7 +74,7 @@ const MovieList: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="mt-16">
       <h3 className="mb-12 text-2xl">Here goes the list of the movies:</h3>
       <div className=" w-5/6 mx-auto">
         {movieList && (
