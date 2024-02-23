@@ -33,8 +33,8 @@ const DateRange: React.FC = ({}) => {
       } else {
         alert("Start date cannot be after end date.");
       }
-      // setSearchStartDate(null);
-      // setSearchEndDate(null);
+      setSearchStartDate(null);
+      setSearchEndDate(null);
     } else {
       alert(
         "Please selecet both the start date and the end date to search movies between the two dates!"
@@ -44,7 +44,7 @@ const DateRange: React.FC = ({}) => {
 
   return (
     <form onSubmit={changeDateHandler} className="flex flex-row mx-1">
-      <div>
+      <div className="flex flex-row mx-1">
         <DatePicker
           selected={searchStartDate}
           onChange={(date: Date | null) => setSearchStartDate(date)}
@@ -58,11 +58,11 @@ const DateRange: React.FC = ({}) => {
           onChange={(date: Date | null) => setSearchEndDate(date)}
           placeholderText="End Date"
           dateFormat="dd-MM-yyyy"
-          className=" mobile:mx-[.125rem] sm:mx-2 mobile:w-14 sm:w-20 md:w-24 rounded-sm mobile:text-mobile sm:text-sm text-center text-gray-900"
+          className=" mobile:mx-[.125rem] sm:mx-1 mobile:w-14 sm:w-20 md:w-24 rounded-sm mobile:text-mobile sm:text-sm text-center text-gray-900"
         />
         <button
           type="submit"
-          className=" ml-2 mobile:text-mobile sm:text-sm md:text-lg  grid-cols-1 pb-1"
+          className=" ml-2 text-sm md:text-lg  grid-cols-1 pb-1"
         >
           <div className="place-self-center">Search</div>
         </button>

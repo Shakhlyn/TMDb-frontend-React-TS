@@ -15,7 +15,7 @@ const NavBar: React.FC = () => {
           <NavLink to="/">TMDb</NavLink>
         </div>
 
-        <div>
+        <div className="flex justify-center items-center overflow-auto">
           <DateRange />
         </div>
 
