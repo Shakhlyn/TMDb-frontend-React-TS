@@ -21,7 +21,7 @@ const MoviesByGenres: React.FC<genrePropsType> = ({ genre }) => {
 
   return (
     <section className="mx-4 my-2 shadow-sm rounded shadow-rose-900">
-      <div className="grid grid-cols2 sm:grid-cols-5 gap-4 w-full h-auto p-2">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 w-full h-auto p-2">
         {movieList.map((movie) => (
           <div
             key={movie.id}
